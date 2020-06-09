@@ -1,0 +1,350 @@
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import java.awt.EventQueue;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import java.awt.BorderLayout;
+import javax.swing.JTextField;
+import java.awt.Color;
+import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Image;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import javax.swing.UIManager;
+import javax.swing.text.JTextComponent;
+
+import java.awt.SystemColor;
+import java.text.SimpleDateFormat;
+
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.awt.event.ActionEvent;
+import java.util.*;
+import javax.swing.DropMode;
+import javax.swing.JSpinner;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+
+
+public class frame2 {
+
+	JFrame frame;
+	private JTextField txtRft;
+	private JTextField txtobj;
+    public float y;
+    public String z;
+    public int x;
+    private JLabel  lblTime;
+    private JTextField txttime;
+    private JTextField txtqp;
+    private JTextField txtshort;
+    
+    private JTextField txtqt;
+	
+    
+    
+	/**
+	 * Launch the application.
+	 */
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frame2 window = new frame2();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+		});
+		
+	}
+	
+	
+	public void clock2()
+	{	
+		Thread clock2=new Thread()
+		{
+			public void run()
+			{
+				try 
+				{
+					for(;;) {
+				        Calendar cal = new GregorianCalendar();
+					    int day=cal.get(Calendar.DAY_OF_MONTH);
+					    int month=cal.get(Calendar.MONTH);
+					    int year=cal.get(Calendar.YEAR);
+					 
+
+					    int second=cal.get(Calendar.SECOND);
+					    int minute=cal.get(Calendar.MINUTE);
+					    int hour=cal.get(Calendar.HOUR);
+
+					   txttime.setText(+hour+":"+minute+":"+second);
+					   txtdate.setText(+day+"/"+month+"/"+year);	
+				
+				
+				sleep(1000);
+				}
+				}catch (InterruptedException e) 
+				{
+			    	e.printStackTrace();
+				
+				}
+			}
+		};
+		clock2.start();
+		
+		
+   
+   
+}
+
+	Connection conn=null ;
+	private JComboBox combo5;
+	public frame2() {
+	//clock2();
+	conn=sqlExcel.dbAConnecter();
+	fillComboBox();
+	initialize();
+		 
+	}
+	/*
+	public void updateTable() 
+	{
+		String sql="select * from table2"
+	}
+*/
+	public void fillComboBox()
+	{
+		try {
+			
+		
+		String querry ="select * from table2";
+		PreparedStatement pst=conn.prepareStatement(querry);
+		ResultSet rs=pst.executeQuery();
+		while (rs.next())
+		{
+			combo5.addItem(rs.getString("ref_table"));
+		}
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+	}
+		
+	
+	/**
+	 * Initialize the contents of the frame.
+	 * @wbp.parser.entryPoint
+	 */
+	private void initialize() {
+		
+		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(255, 255, 255));
+		frame.setBounds(100, 100, 549, 388);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		txtRft = new JTextField();
+		txtRft.setToolTipText("");
+		txtRft.setForeground(new Color(0, 0, 0));
+		txtRft.setBackground(new Color(255, 255, 255));
+		txtRft.setFont(new Font("Imprint MT Shadow", Font.BOLD | Font.ITALIC, 20));
+		txtRft.setText("0");
+		txtRft.setBounds(366, 81, 125, 69);
+		frame.getContentPane().add(txtRft);
+		txtRft.setColumns(10);
+		
+		
+		JLabel lblNewLabel = new JLabel("");
+		Image  img4=new ImageIcon(this.getClass().getResource("/icons8-happy-80 (1).png")).getImage();
+		lblNewLabel.setIcon(new ImageIcon(img4));
+		lblNewLabel.setBounds(392, 219, 90, 81);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JLabel lblNewLabel_6 = new JLabel("");
+		Image  img6=new ImageIcon(this.getClass().getResource("/icons8-smiling-96 (1).png")).getImage();
+		lblNewLabel_6.setIcon(new ImageIcon(img6));
+		lblNewLabel_6.setBounds(392, -26, 151, 96);
+		frame.getContentPane().add(lblNewLabel_6);
+		Image  img7=new ImageIcon(this.getClass().getResource("/leoni-_1_.jpg")).getImage();
+		lblNewLabel_6.setIcon(new ImageIcon(img7));
+		
+		JLabel lblNewLabel_5 = new JLabel("");
+		Image  img5=new ImageIcon(this.getClass().getResource("/icons8-sad-80.png")).getImage();
+		lblNewLabel_5.setIcon(new ImageIcon(img5));
+		lblNewLabel_5.setBounds(392, 219, 90, 91);
+		frame.getContentPane().add(lblNewLabel_5);
+		
+		
+		
+		JLabel lblNewLabel_8 = new JLabel("");
+		Image  img8=new ImageIcon(this.getClass().getResource("/icons8-smiling-96 (1).png")).getImage();
+		lblNewLabel_8.setIcon(new ImageIcon(img8));
+		lblNewLabel_8.setBounds(386, 219, 126, 81);
+		frame.getContentPane().add(lblNewLabel_8);
+		
+		txtobj = new JTextField();
+		txtobj.setBounds(156, 91, 126, 40);
+		frame.getContentPane().add(txtobj);
+		txtobj.setColumns(10);
+	
+	
+        
+		JLabel lblObjectif = new JLabel("objectif =");
+		lblObjectif.setFont(new Font("Sitka Small", Font.BOLD, 13));
+		lblObjectif.setBounds(10, 94, 80, 38);
+		frame.getContentPane().add(lblObjectif);
+		
+		JLabel lblQuantiProduite_1 = new JLabel("quanti\u00E9  produite  = ");
+		lblQuantiProduite_1.setFont(new Font("Sitka Small", Font.BOLD, 13));
+		lblQuantiProduite_1.setBounds(10, 194, 158, 38);
+		frame.getContentPane().add(lblQuantiProduite_1);
+		
+		txtqp = new JTextField();
+		txtqp.setColumns(10);
+		txtqp.setText("0");
+		txtqp.setBounds(156, 191, 126, 40);
+		frame.getContentPane().add(txtqp);
+		
+		txtshort = new JTextField();
+		txtshort.setColumns(10);
+		txtshort.setText("0");
+		txtshort.setBounds(156, 240, 126, 40);
+		frame.getContentPane().add(txtshort);
+		
+		JLabel lblShort = new JLabel("short = ");
+		lblShort.setFont(new Font("Sitka Small", Font.BOLD, 13));
+		lblShort.setBounds(10, 243, 80, 38);
+		frame.getContentPane().add(lblShort);
+		
+		txtqt = new JTextField();
+		txtqt.setBounds(156, 143, 126, 37);
+		frame.getContentPane().add(txtqt);
+		txtqt.setColumns(10);
+		
+		JButton btnCalculer = new JButton("calculer");
+		btnCalculer.setBackground(Color.GREEN);
+		btnCalculer.addActionListener(new ActionListener() {
+			////////////////////////////////////////////
+			public void actionPerformed(ActionEvent e) 
+			{
+			      z = txtobj.getText();
+				if(z!="") {
+				  y = (Float.parseFloat(z))/8;
+				//System.out.println(""+y);
+				 txtqt.setText(y+"   "+"câblage/heure");	
+				}
+				 
+				 
+			    
+			}
+		});
+		
+		
+		    ////////////////////////////////////////////////////////////////////////////////////////////
+		btnCalculer.setBounds(156, 291, 126, 40);
+		frame.getContentPane().add(btnCalculer);
+		
+		JLabel lblQuantiteAProduite = new JLabel("quantite a produire=");
+		lblQuantiteAProduite.setFont(new Font("Sitka Small", Font.BOLD, 13));
+		lblQuantiteAProduite.setBounds(10, 153, 158, 20);
+		frame.getContentPane().add(lblQuantiteAProduite);
+		
+		JLabel lblNewLabel_1 = new JLabel("RFT=");
+		lblNewLabel_1.setFont(new Font("Sitka Small", Font.BOLD, 23));
+		lblNewLabel_1.setBounds(292, 85, 92, 69);
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("%");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 23));
+		lblNewLabel_2.setBounds(497, 73, 46, 81);
+		frame.getContentPane().add(lblNewLabel_2);
+		
+	    lblTime = new JLabel("Time:");
+		lblTime.setFont(new Font("Sitka Small", Font.BOLD, 13));
+		lblTime.setBounds(10, 62, 46, 14);
+		frame.getContentPane().add(lblTime);
+		
+		txttime = new JTextField();
+		txttime.setBounds(54, 51, 98, 32);
+		frame.getContentPane().add(txttime);
+		txttime.setColumns(10);
+		
+		JLabel lblRfTable = new JLabel("R\u00E9f Table : ");
+		lblRfTable.setFont(new Font("Sitka Small", Font.BOLD, 14));
+		lblRfTable.setBounds(163, 19, 104, 28);
+		frame.getContentPane().add(lblRfTable);
+		
+		combo5 = new JComboBox();
+		combo5.setBounds(248, 18, 114, 27);
+		frame.getContentPane().add(combo5);
+		
+		try
+		{
+		String querry ="select * from data1";
+		PreparedStatement pst=conn.prepareStatement(querry);
+		ResultSet rs=pst.executeQuery();
+		String inter;       
+		int num;
+		String inter1;  
+		int num1;               
+		String inter2;
+		float num2;
+		float qt=1;
+		while(rs.next())
+		{ 
+			
+			if ((rs.getInt(2)!=0)&&(rs.getInt(3)==0))
+			{
+				
+				inter= txtqp.getText();
+				num=Integer.parseInt(inter);
+				num++;
+			    inter=num+"";
+				txtqp.setText(inter);
+			}
+			if (rs.getInt(3)==1)
+			{   
+				inter1= txtshort.getText();
+				num1=Integer.parseInt(inter1);
+				num1++;
+				inter1=num1+"";
+				txtshort.setText(inter1);
+			}
+			
+			if ((rs.getInt(2)==1)&&(rs.getInt(3)==0))
+			{
+				inter2= txtRft.getText();
+				num2=Float.parseFloat(inter2);
+				num2++;
+				qt=Float.parseFloat(txtqp.getText());
+				num2=((num2/qt)*100);
+				inter2=Float.toString(num2);
+				inter2=inter2;
+				txtRft.setText(inter2);
+			}
+			
+		}
+		}
+		catch(Exception e)
+		{
+			JOptionPane.showMessageDialog(null, e);
+		}
+		
+		
+	}
+}
+
